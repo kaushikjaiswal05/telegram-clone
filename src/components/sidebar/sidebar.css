@@ -159,3 +159,17 @@ input:checked + .slider:before {
   cursor: pointer;
 }
 
+@media (max-width: 768px) {
+  .sidebar {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .message {
+    left: 80%;
+  }
+
+  .menu {
+    width: 90%;
+  }
+}

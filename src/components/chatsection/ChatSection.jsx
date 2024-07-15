@@ -4,8 +4,9 @@ import "./chatsection.css";
 import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-const ChatSection = ({ selectedChatId }) => {
+const ChatSection = ({ selectedChatId, onBack, isMobile }) => {
   const [messages, setMessages] = useState([]);
   const [chatDetails, setChatDetails] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -66,11 +67,13 @@ const ChatSection = ({ selectedChatId }) => {
     }
     return color;
   };
+
   const handleSendMessage = () => {
     if (newMessage.trim() === "") return;
     console.log("Send message:", newMessage);
     setNewMessage("");
   };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
@@ -78,6 +81,7 @@ const ChatSection = ({ selectedChatId }) => {
     <div className="chatSection">
       {chatDetails && (
         <div className="chatSection__header">
+          {isMobile && <ArrowBackIcon className="backButton" onClick={onBack} />}
           <div
             className="chatSection__avatar"
             style={{

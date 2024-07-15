@@ -31,7 +31,9 @@ function App() {
           Array.isArray(response.data.data.data) &&
           response.data.data.data.length > 0
         ) {
-          setSelectedChatId(response.data.data.data[0].id);
+          if (!isMobile) {
+            setSelectedChatId(response.data.data.data[0].id);
+          }
         }
       } catch (err) {
         console.error("Failed to fetch chats:", err);
@@ -39,7 +41,7 @@ function App() {
     };
 
     fetchChats();
-  }, []);
+  }, [isMobile]);
 
   const handleSelectChat = (chatId) => {
     setSelectedChatId(chatId);
@@ -49,14 +51,14 @@ function App() {
     <div className="app">
       {isMobile ? (
         selectedChatId ? (
-          <ChatSection selectedChatId={selectedChatId} />
+          <ChatSection selectedChatId={selectedChatId} onBack={() => setSelectedChatId(null)} isMobile={isMobile} />
         ) : (
           <Sidebar onSelectChat={handleSelectChat} selectedChatId={selectedChatId} />
         )
       ) : (
         <>
           <Sidebar onSelectChat={handleSelectChat} selectedChatId={selectedChatId} />
-          <ChatSection selectedChatId={selectedChatId} />
+          <ChatSection selectedChatId={selectedChatId} isMobile={isMobile} />
         </>
       )}
     </div>
